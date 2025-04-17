@@ -16,11 +16,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', routes);//asocia todas las rutas definidas en routes bajo el prefijo '/api'
 
 // Fallback
-app.get('*', (req, res) => {
+/*app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));//Captura todas las rutas que no coinciden con las anteriores
     //  (* es un comodín) y devuelve el archivo index.html
-});
-
+});*/
+app.use((req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  });
+  
 // Arranque del servidor
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);//inicia el servidor para escuchar en el puerto indicado
