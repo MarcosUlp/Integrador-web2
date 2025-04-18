@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Juego de Banderas</title>
   <link rel="stylesheet" href="css/estilos.css" />
 </head>
+
 <body>
   <h1>Juego de Banderas 🌍</h1>
   <p id="mensaje">Conectando al servidor...</p>
+
+  <div id="juego">
+    <p id="pregunta">Cargando pregunta </p>
+    <img id="bandera" src="" alt="" style="display:none; max-width: 200px;">
+    <div id="opciones"></div>
+    <p id="resultado"></p>
+
+  </div>
   <script src="js/main.js"></script>
 </body>
+
 </html>
