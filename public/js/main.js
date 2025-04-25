@@ -57,16 +57,16 @@ function verificarRespuesta(elegida, correcta, puntaje) {
   botones.forEach(btn => btn.disabled = true);
 
   const tiempo = Date.now() - inicioPregunta;
-  partida.tiempos.push(timepo);
+  partida.tiempos.push(tiempo);
   partida.actuales++;
 
   if (elegida === correcta) {
     partida.correctas++;
-    partida.puntae += puntaje;
+    partida.puntaje += puntaje;
     resultado.textContent = `✅ ¡Correcto! Ganaste ${puntaje} puntos`;
     resultado.style.color = 'green';
   } else {
-    partidas.incorrectas++;
+    partida.incorrectas++;
     resultado.textContent = `❌ Incorrecto. La respuesta correcta era: ${correcta}`;
     resultado.style.color = 'red';
   }
@@ -90,8 +90,47 @@ function mostrarResumenFinal() {
     <p> Puntaje total: ${partida.puntaje}</p>
     <p> Tiempo total: ${(duracionTotal / 1000).toFixed(2)} segundos</p>
     <p> Tiempo promedio por pregunta: ${(promedio / 1000).toFixed(2)} segundos</p>
-    <button onclick="reiniciarPartida()">Volver a jugar</button>
+
+    <form id = "formGuardar">
+    <label for="nombre">Tu nombre:</label>
+      <input type="text" id="nombre" name="nombre" required>
+      <button type="submit">Guardar partida</button>
+    </form>
+
+    <div id="mensajeGuardado" style="margin-top: 10px;"></div>
+
+    <button id="btnReiniciar" style="display: none;">Volver a jugar</button>
   `;
+  document.getElementById('formGuardar').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const nombre = document.getElementById('nombre').value.trim();
+
+    if (!nombre) return;
+
+    const datosPartida = {
+      nombre,
+      correctas: partida.correctas,
+      incorrectas: partida.incorrectas,
+      puntaje: partida.puntaje,
+      tiempoTotal: duracionTotal,
+      fecha: new Date().toISOString()
+    };
+
+    const res = await fetch('/api/partida', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(datosPartida)
+    });
+
+    if (res.ok) {
+      document.getElementById('mensajeGuardado').textContent = '✅ Partida guardada con éxito.';
+      document.getElementById('btnReiniciar').style.display = 'inline-block';
+    } else {
+      document.getElementById('mensajeGuardado').textContent = '❌ Error al guardar la partida.';
+    }
+  });
+
+  document.getElementById('btnReiniciar').addEventListener('click', reiniciarPartida);
 }
 function reiniciarPartida() {
   partida = {

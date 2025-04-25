@@ -6,7 +6,7 @@ async function generarPregunta(req, res) {
     // Filtramos países con datos válidos, necesario para los 3 tipos de pregunta que queremos realizar
     //basicamente filtra el array de paises y solo deja aquellos que tengan datos completos,
     //nombre, capital, bandera y tenga paises limitrofes
-    const validCountries = countries.filter(c => 
+    const validCountries = countries.filter(c =>
       c.capital && c.capital.length > 0 && c.name && c.name.common && c.flags && c.borders
     );
 
@@ -25,15 +25,18 @@ async function generarPregunta(req, res) {
       case 'capital':
         pregunta.texto = `¿la capital ${pais.capital[0]} a que pais corresponde??`;
         respuestaCorrecta = pais.name.common;
+        pregunta.puntaje = 3;
         break;
       case 'bandera':
         pregunta.texto = `¿A qué país pertenece la siguiente bandera?`;
         pregunta.imagen = pais.flags.svg;
         respuestaCorrecta = pais.name.common;
+        pregunta.puntaje = 5;
         break;
       case 'frontera':
         pregunta.texto = `¿Cuántos países limítrofes tiene ${pais.name.common}?`;
         respuestaCorrecta = pais.borders.length.toString();
+        pregunta.puntaje = 3;
         break;
     }
 
@@ -60,6 +63,9 @@ async function generarPregunta(req, res) {
     pregunta.respuesta = respuestaCorrecta; // guardamos la respuesta correcta en una vae
     pregunta.tipo = tipo;
 
+    pregunta.puntaje = pregunta.puntaje || (
+      tipo === 'bandedra' ? 5 : 3
+    )
     res.json(pregunta);
   } catch (error) {
     console.error(error);

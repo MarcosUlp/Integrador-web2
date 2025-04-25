@@ -3,6 +3,8 @@ const express = require('express');//importa el modulo express, framwork para cr
 const app = express();//con esto configuramos rutas, puertos, middlewares
 const path = require('path');//importar modulo path de node.js para manejar rutas de archivos en todos los sistemas operativos
 const routes = require('./src/routes/index');
+const router = require('./src/routes/index');
+const { guardarPartida } = require('./src/controllers/PartidaController');
 const PORT = process.env.PORT || 3000;//define el puerto para correr el servidor 3000 va por defecto
 
 // Middlewares
@@ -20,9 +22,15 @@ app.use('/api', routes);//asocia todas las rutas definidas en routes bajo el pre
     res.sendFile(path.join(__dirname, 'public', 'index.html'));//Captura todas las rutas que no coinciden con las anteriores
     //  (* es un comodín) y devuelve el archivo index.html
 });*/
-app.use((req, res) => {
+
+app.use((req, res) => {// app.use:middleware, no especifica ruta, aplica a toda peticion HTTP
+
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
   });
+//dirname: directorio actual
+//contruye ruta absoluta al archivo 'index.html' dentro del directorio 'public'
+
+
   
 // Arranque del servidor
 app.listen(PORT, () => {
