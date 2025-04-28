@@ -64,7 +64,7 @@ async function generarPregunta(req, res) {
     pregunta.tipo = tipo;
 
     pregunta.puntaje = pregunta.puntaje || (
-      tipo === 'bandedra' ? 5 : 3
+      tipo === 'bandera' ? 5 : 3
     )
     res.json(pregunta);
   } catch (error) {

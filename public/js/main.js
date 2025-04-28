@@ -9,7 +9,7 @@ fetch('/api/ping')
   });
 
 let partida = {
-  totalPreguntas: 10,
+  totalPreguntas: 1,
   actuales: 0,
   correctas: 0,
   incorrectas: 0,
@@ -72,9 +72,9 @@ function verificarRespuesta(elegida, correcta, puntaje) {
   }
 
   if (partida.actuales >= partida.totalPreguntas) {
-    setTimeout(mostrarResumenFinal, 1500);
+    setTimeout(mostrarResumenFinal, 500);
   } else {
-    setTimeout(obtenerPregunta, 1500);
+    setTimeout(obtenerPregunta, 500);
   }
 }
 function mostrarResumenFinal() {
@@ -125,6 +125,8 @@ function mostrarResumenFinal() {
     if (res.ok) {
       document.getElementById('mensajeGuardado').textContent = '✅ Partida guardada con éxito.';
       document.getElementById('btnReiniciar').style.display = 'inline-block';
+
+      cargarHistorial();
     } else {
       document.getElementById('mensajeGuardado').textContent = '❌ Error al guardar la partida.';
     }
@@ -132,6 +134,56 @@ function mostrarResumenFinal() {
 
   document.getElementById('btnReiniciar').addEventListener('click', reiniciarPartida);
 }
+
+
+
+
+/*async function cargarHistorial() {
+  const res = await fetch('/api/partidas');
+  const partidas = await res.json();
+
+  const historialDiv = document.getElementById('historial');
+  historialDiv.innerHTML = '';
+  partidas.forEach(partidas => {
+    const div = document.createElement('div');
+    div.innerHTML = `
+    <p> Respuestas correctas: ${partida.correctas}</p>
+         <p> Respuestas incorrectas: ${partida.incorrectas}</p>
+    <p> Puntaje total: ${partida.puntaje}</p>
+    <p> Tiempo total: ${(duracionTotal / 1000).toFixed(2)} segundos</p>
+    <p> Tiempo promedio por pregunta: ${(promedio / 1000).toFixed(2)} segundos</p>
+  `;
+  historialDiv.appendChild(div);
+  });
+}
+*/
+async function cargarHistorial() {
+  const res = await fetch('/api/partidas');
+  const partidas = await res.json();
+
+  const historialDiv = document.getElementById('historial');
+  historialDiv.innerHTML = '<h2>Historial de partidas</h2>';
+
+  partidas.forEach(partida => {
+    const duracionTotal = partida.tiempoTotal;
+    const promedio = partida.tiempoTotal / partida.correctas;
+
+    const div = document.createElement('div');
+    div.innerHTML = `
+      <p>Jugador: ${partida.nombre}</p>
+      <p>Respuestas correctas: ${partida.correctas}</p>
+      <p>Respuestas incorrectas: ${partida.incorrectas}</p>
+      <p>Puntaje total: ${partida.puntaje}</p>
+      <p>Tiempo total: ${(duracionTotal / 1000).toFixed(2)} segundos</p>
+      <p>Tiempo promedio por pregunta: ${(promedio / 1000).toFixed(2)} segundos</p>
+      <hr>
+
+    `;
+    historialDiv.appendChild(div);
+  });
+}
+
+
 function reiniciarPartida() {
   partida = {
     totalPreguntas: 10,
