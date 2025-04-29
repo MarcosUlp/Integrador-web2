@@ -24,7 +24,6 @@ async function obtenerPregunta() {
   const res = await fetch('/api/pregunta');
   const data = await res.json();
 
-
   document.getElementById('pregunta').textContent = data.texto;
 
   // Mostrar bandera si es pregunta de tipo "bandera"
@@ -36,7 +35,7 @@ async function obtenerPregunta() {
     img.style.display = 'none';
   }
 
-  // Mostrar las opciones
+  // Mostrar opciones
   const contenedorOpciones = document.getElementById('opciones');
   contenedorOpciones.innerHTML = '';
   data.opciones.forEach(opcion => {
@@ -52,8 +51,7 @@ async function obtenerPregunta() {
 
 function verificarRespuesta(elegida, correcta, puntaje) {
   const resultado = document.getElementById('resultado');
-  const botones = document.querySelectorAll('#opciones button');//desactiva botones para que no se pueda cammbiar la respuesta
-
+  const botones = document.querySelectorAll('#opciones button');
   botones.forEach(btn => btn.disabled = true);
 
   const tiempo = Date.now() - inicioPregunta;
@@ -77,6 +75,7 @@ function verificarRespuesta(elegida, correcta, puntaje) {
     setTimeout(obtenerPregunta, 500);
   }
 }
+
 function mostrarResumenFinal() {
   const fin = Date.now();
   const duracionTotal = fin - partida.inicio;
@@ -84,23 +83,25 @@ function mostrarResumenFinal() {
 
   const juegoDiv = document.getElementById('juego');
   juegoDiv.innerHTML = `
-    <h2> Fin de la partida</h2>
-    <p> Respuestas correctas: ${partida.correctas}</p>
-    <p> Respuestas incorrectas: ${partida.incorrectas}</p>
-    <p> Puntaje total: ${partida.puntaje}</p>
-    <p> Tiempo total: ${(duracionTotal / 1000).toFixed(2)} segundos</p>
-    <p> Tiempo promedio por pregunta: ${(promedio / 1000).toFixed(2)} segundos</p>
+    <h2>Fin de la partida</h2>
+    <p>Respuestas correctas: ${partida.correctas}</p>
+    <p>Respuestas incorrectas: ${partida.incorrectas}</p>
+    <p>Puntaje total: ${partida.puntaje}</p>
+    <p>Tiempo total: ${(duracionTotal / 1000).toFixed(2)} segundos</p>
+    <p>Tiempo promedio por pregunta: ${(promedio / 1000).toFixed(2)} segundos</p>
 
-    <form id = "formGuardar">
-    <label for="nombre">Tu nombre:</label>
+    <form id="formGuardar">
+      <label for="nombre">Tu nombre:</label>
       <input type="text" id="nombre" name="nombre" required>
       <button type="submit">Guardar partida</button>
     </form>
 
     <div id="mensajeGuardado" style="margin-top: 10px;"></div>
 
-    <button id="btnReiniciar" style="display: none;">Volver a jugar</button>
+    <button id="btnReiniciar">Volver a jugar</button>
   `;
+
+  // ✅ ENVÍO DEL FORMULARIO CON DATOS DE LA PARTIDA
   document.getElementById('formGuardar').addEventListener('submit', async (e) => {
     e.preventDefault();
     const nombre = document.getElementById('nombre').value.trim();
@@ -124,39 +125,37 @@ function mostrarResumenFinal() {
 
     if (res.ok) {
       document.getElementById('mensajeGuardado').textContent = '✅ Partida guardada con éxito.';
-      document.getElementById('btnReiniciar').style.display = 'inline-block';
-
-      cargarHistorial();
+      
     } else {
       document.getElementById('mensajeGuardado').textContent = '❌ Error al guardar la partida.';
     }
   });
 
-  document.getElementById('btnReiniciar').addEventListener('click', reiniciarPartida);
-}
+  // ✅ CORREGIDO: REINICIO QUE RECONSTRUYE EL JUEGO
+  document.getElementById('btnReiniciar').addEventListener('click', () => {
+    partida = {
+      totalPreguntas: 1,
+      actuales: 0,
+      correctas: 0,
+      incorrectas: 0,
+      puntaje: 0,
+      inicio: Date.now(),
+      tiempos: []
+    };
 
+    const juegoDiv = document.getElementById('juego');
+    juegoDiv.innerHTML = `
+      <h1>Juego de Países</h1>
+      <p id="pregunta">Cargando pregunta...</p>
+      <img id="bandera" src="" alt="Bandera" style="display:none; width: 200px;">
+      <div id="opciones"></div>
+      <p id="resultado"></p>
+    `;
 
-
-
-/*async function cargarHistorial() {
-  const res = await fetch('/api/partidas');
-  const partidas = await res.json();
-
-  const historialDiv = document.getElementById('historial');
-  historialDiv.innerHTML = '';
-  partidas.forEach(partidas => {
-    const div = document.createElement('div');
-    div.innerHTML = `
-    <p> Respuestas correctas: ${partida.correctas}</p>
-         <p> Respuestas incorrectas: ${partida.incorrectas}</p>
-    <p> Puntaje total: ${partida.puntaje}</p>
-    <p> Tiempo total: ${(duracionTotal / 1000).toFixed(2)} segundos</p>
-    <p> Tiempo promedio por pregunta: ${(promedio / 1000).toFixed(2)} segundos</p>
-  `;
-  historialDiv.appendChild(div);
+    obtenerPregunta(); // ← Se llama a la primera pregunta otra vez
   });
 }
-*/
+
 async function cargarHistorial() {
   const res = await fetch('/api/partidas');
   const partidas = await res.json();
@@ -166,37 +165,29 @@ async function cargarHistorial() {
 
   partidas.forEach(partida => {
     const duracionTotal = partida.tiempoTotal;
-    const promedio = partida.tiempoTotal / partida.correctas;
+    const promedio = partida.correctas > 0
+      ? partida.tiempoTotal / partida.correctas
+      : 0;
 
     const div = document.createElement('div');
     div.innerHTML = `
-      <p>Jugador: ${partida.nombre}</p>
+      <hr>
+      <p><strong>Jugador:</strong> ${partida.nombre}</p>
       <p>Respuestas correctas: ${partida.correctas}</p>
       <p>Respuestas incorrectas: ${partida.incorrectas}</p>
       <p>Puntaje total: ${partida.puntaje}</p>
       <p>Tiempo total: ${(duracionTotal / 1000).toFixed(2)} segundos</p>
-      <p>Tiempo promedio por pregunta: ${(promedio / 1000).toFixed(2)} segundos</p>
-      <hr>
-
+      <p>Promedio por pregunta: ${(promedio / 1000).toFixed(2)} segundos</p>
     `;
     historialDiv.appendChild(div);
   });
 }
 
-
-function reiniciarPartida() {
-  partida = {
-    totalPreguntas: 10,
-    actuales: 0,
-    correctas: 0,
-    incorrectas: 0,
-    puntaje: 0,
-    inicio: Date.now(),
-    tiempos: []
-  };
-  obtenerPregunta();
-}
-
-
 //Aqui empieza el juego
 obtenerPregunta();
+
+// Mostrar historial solo al hacer clic en el botón
+document.getElementById('btnHistorial').addEventListener('click', () => {
+  document.getElementById('historial').style.display = 'block';
+  cargarHistorial();
+});
