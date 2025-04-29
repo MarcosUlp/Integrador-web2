@@ -98,10 +98,10 @@ function mostrarResumenFinal() {
 
     <div id="mensajeGuardado" style="margin-top: 10px;"></div>
 
-    <button id="btnReiniciar">Volver a jugar</button>
+    <button id="btnReiniciar" disabled>Volver a jugar</button>
   `;
 
-  // ✅ ENVÍO DEL FORMULARIO CON DATOS DE LA PARTIDA
+  // aca se envia el formulario con los datos de la partida
   document.getElementById('formGuardar').addEventListener('submit', async (e) => {
     e.preventDefault();
     const nombre = document.getElementById('nombre').value.trim();
@@ -125,13 +125,14 @@ function mostrarResumenFinal() {
 
     if (res.ok) {
       document.getElementById('mensajeGuardado').textContent = '✅ Partida guardada con éxito.';
-      
+      document.getElementById('btnReiniciar').disabled = false;
+
     } else {
       document.getElementById('mensajeGuardado').textContent = '❌ Error al guardar la partida.';
     }
   });
 
-  // ✅ CORREGIDO: REINICIO QUE RECONSTRUYE EL JUEGO
+  // boton reinciar para actualizar dinamicamente htmly volver a jugar
   document.getElementById('btnReiniciar').addEventListener('click', () => {
     partida = {
       totalPreguntas: 1,
@@ -187,7 +188,23 @@ async function cargarHistorial() {
 obtenerPregunta();
 
 // Mostrar historial solo al hacer clic en el botón
-document.getElementById('btnHistorial').addEventListener('click', () => {
+/*document.getElementById('btnHistorial').addEventListener('click', () => {
   document.getElementById('historial').style.display = 'block';
   cargarHistorial();
+});
+*/
+document.getElementById('btnHistorial').addEventListener('click', () => {
+  const historialDiv = document.getElementById('historial');
+  const visible = historialDiv.getAttribute('data-visible') === 'true';
+
+  if (visible) {
+    historialDiv.style.display = 'none';
+    historialDiv.setAttribute('data-visible', 'false');
+    document.getElementById('btnHistorial').textContent = 'Ver historial';
+  } else {
+    historialDiv.style.display = 'block';
+    historialDiv.setAttribute('data-visible', 'true');
+    document.getElementById('btnHistorial').textContent = 'Ocultar historial';
+    cargarHistorial();
+  }
 });

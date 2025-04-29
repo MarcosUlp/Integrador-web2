@@ -1,0 +1,23 @@
+[
+    {
+      "name": {
+        "common": "Argentina"
+      },
+      "capital": ["Buenos Aires"],
+      "flags": {
+        "svg": "https://flagcdn.com/16x12/ar.svg"
+      },
+      "borders": ["BOL", "BRA", "CHL", "PRY", "URY"]
+    },
+    {
+      "name": {
+        "common": "Brasil"
+      },
+      "capital": ["Brasilia"],
+      "flags": {
+        "svg": "https://flagcdn.com/16x12/br.svg"
+      },
+      "borders": ["ARG", "BOL", "GUF", "COL", "PRY", "SUR", "URY", "VEN"]
+    }
+  ]
+  
