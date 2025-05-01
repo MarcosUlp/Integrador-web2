@@ -1,110 +1,117 @@
 /* Reset básico */
+html{
+  overflow: scroll;
+}
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(to right, #d2b48c, #a67b5b); /* estilo tierra */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    padding-top: 50px;
-    color: #333;
-  }
-  
-  /* Contenedor centrado */
-  #contenedor {
-    background-color: #fffaf3;
-    border: 2px solid #ddd;
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    padding: 30px;
-    width: 90%;
-    max-width: 600px;
-    min-height: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-  }
-  
-  /* Elementos del juego */
-  h1 {
-    margin-bottom: 20px;
-    color: #4a3f35;
-  }
-  
-  #pregunta {
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-  }
-  
-  #bandera {
-    margin: 10px auto;
-    max-width: 200px;
-    display: block;
-    border-radius: 8px;
-  }
-  
-  #opciones {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 15px;
-  }
-  
-  #opciones button {
-    padding: 10px 15px;
-    background-color: #c7a17a;
-    border: none;
-    border-radius: 8px;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  #opciones button:hover {
-    background-color: #a67b5b;
-  }
-  
-  #resultado {
-    margin-top: 20px;
-    font-weight: bold;
-  }
-  
-  /* Botones */
-  button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #8b5e3c;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  
-  button:hover {
-    background-color: #754c2f;
-  }
-  
-  /* Historial separado */
-  #historial {
-    margin-top: 40px;
-    width: 90%;
-    max-width: 600px;
-    background-color: #fdf6ec;
-    border: 1px solid #ccc;
-    border-radius: 12px;
-    padding: 20px;
-    display: none;
-  }
-  
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-image: url('/Img/back.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+  color: #333;
+}
+
+/* Contenedor centrado */
+#contenedor {
+  background-color: #fffaf3;
+  border: 2px solid #ddd;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  padding: 30px;
+  width: 90%;
+  max-width: 600px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Elementos del juego */
+h1 {
+  margin-bottom: 20px;
+  color: #4a3f35;
+}
+
+#pregunta {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+#bandera {
+  margin: 10px auto;
+  max-width: 200px;
+  display: block;
+  border-radius: 8px;
+}
+
+#opciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+#opciones button {
+  padding: 10px 15px;
+  background-color: deepskyblue;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#opciones button:hover {
+  background-color: deepskyblue;
+}
+
+#resultado {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+/* Botones */
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: deepskyblue;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background-color: blue;
+}
+
+/* Historial separado */
+#historial {
+  margin-top: 40px;
+  width: 100%;
+  max-width: 600px;
+  background-color: #fdf6ec;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 20px;
+  display: none;
+}
