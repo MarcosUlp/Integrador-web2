@@ -12,9 +12,11 @@ router.get('/ping', (req, res) => {//cuando alguien visita mi sitio con metodo g
 });
 //se solicita ping y si responde pong esta todo ok
 
+
+
+
 router.get('/pregunta', generarPregunta);
 router.post('/partida', guardarPartida);
-
 
 //esta ruta es para obtener las ultimas partidas
 router.get('/partidas', (req, res)=>{ // req es el requerimiento del cliente, res el objeto respuesta
@@ -23,12 +25,25 @@ router.get('/partidas', (req, res)=>{ // req es el requerimiento del cliente, re
     if(err) return res.status(500).json({error: 'error leyendo el archivo'});
     try{
       const partidas = JSON.parse(data);
+      const ordenadas = partidas.sort ((a, b) => {
+
+        if(b.puntaje !== a.puntaje) {
+          return b.puntaje - a.puntaje;
+        }
+
+        if(a.tiempoTotal !== b.tiempoTotal){
+          return a.tiempoTotal - b.tiempoTotal;
+        }
+        return b.correctas - a.correctas
+      });
       res.json(partidas);
     }catch(e){
       res.status(500).json({error: 'error parseando partidas'});
     }
   });
 });
+
+
 
 
 

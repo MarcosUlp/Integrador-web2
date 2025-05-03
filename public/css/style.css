@@ -26,8 +26,8 @@ body {
 
 /* Contenedor centrado */
 #contenedor {
-  background-color: #fffaf3;
-  border: 2px solid #ddd;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 2px solid aqua;
   border-radius: 15px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   padding: 30px;
@@ -71,7 +71,7 @@ h1 {
 
 #opciones button {
   padding: 10px 15px;
-  background-color: deepskyblue;
+  background-color: #3b945e;
   border: none;
   border-radius: 8px;
   color: #fff;
@@ -80,7 +80,10 @@ h1 {
 }
 
 #opciones button:hover {
-  background-color: deepskyblue;
+  background-color: #2e744a;
+  filter: brightness(1.1);
+  transform: scale(1.25);
+  transition: 0.5s ease;
 }
 
 #resultado {
@@ -92,7 +95,7 @@ h1 {
 button {
   margin-top: 20px;
   padding: 10px 20px;
-  background-color: deepskyblue;
+  background-color: #3b945e;
   color: white;
   border: none;
   border-radius: 8px;
@@ -101,17 +104,19 @@ button {
 }
 
 button:hover {
-  background-color: blue;
+  background-color: #2e744a;
 }
 
 /* Historial separado */
 #historial {
+  background-color: rgba(180, 210, 255, 0.7);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin-top: 40px;
   width: 100%;
   max-width: 600px;
-  background-color: #fdf6ec;
-  border: 1px solid #ccc;
+  border: 1px solid #333;
   border-radius: 12px;
   padding: 20px;
   display: none;
+  color: #333;
 }

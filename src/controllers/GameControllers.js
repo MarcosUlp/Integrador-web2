@@ -1,9 +1,10 @@
 async function generarPregunta(req, res) {
+  console.log('Se hizo una solicitud GET a /pregunta');
   try {
     const response = await fetch('https://restcountries.com/v3.1/all');//traemos el contenido de la api
     const countries = await response.json();//"paises"el contenido ahora esta en formato json
 
-    // Filtramos países con datos válidos, necesario para los 3 tipos de pregunta que queremos realizar
+    //Filtramos países con datos válidos, necesario para los 3 tipos de pregunta que queremos realizar
     //basicamente filtra el array de paises y solo deja aquellos que tengan datos completos,
     //nombre, capital, bandera y tenga paises limitrofes
     const validCountries = countries.filter(c =>

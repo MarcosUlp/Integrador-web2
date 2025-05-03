@@ -9,7 +9,7 @@ fetch('/api/ping')
   });
 
 let partida = {
-  totalPreguntas: 1,
+  totalPreguntas: 10,
   actuales: 0,
   correctas: 0,
   incorrectas: 0,
@@ -70,9 +70,9 @@ function verificarRespuesta(elegida, correcta, puntaje) {
   }
 
   if (partida.actuales >= partida.totalPreguntas) {
-    setTimeout(mostrarResumenFinal, 500);
+    setTimeout(mostrarResumenFinal, 1500);
   } else {
-    setTimeout(obtenerPregunta, 500);
+    setTimeout(obtenerPregunta, 1500);
   }
 }
 
@@ -135,7 +135,7 @@ function mostrarResumenFinal() {
   // boton reinciar para actualizar dinamicamente htmly volver a jugar
   document.getElementById('btnReiniciar').addEventListener('click', () => {
     partida = {
-      totalPreguntas: 1,
+      totalPreguntas: 10,
       actuales: 0,
       correctas: 0,
       incorrectas: 0,
