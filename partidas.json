@@ -1,5 +1,13 @@
 [
   {
+    "nombre": "marcos",
+    "correctas": 5,
+    "incorrectas": 5,
+    "puntaje": 19,
+    "tiempoTotal": 237244,
+    "fecha": "2025-05-04T14:41:28.393Z"
+  },
+  {
     "nombre": "aydio",
     "correctas": 3,
     "incorrectas": 7,

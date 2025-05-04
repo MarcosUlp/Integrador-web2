@@ -70,9 +70,9 @@ function verificarRespuesta(elegida, correcta, puntaje) {
   }
 
   if (partida.actuales >= partida.totalPreguntas) {
-    setTimeout(mostrarResumenFinal, 1500);
+    setTimeout(mostrarResumenFinal, 1000);
   } else {
-    setTimeout(obtenerPregunta, 1500);
+    setTimeout(obtenerPregunta, 1000);
   }
 }
 
@@ -153,7 +153,7 @@ function mostrarResumenFinal() {
       <p id="resultado"></p>
     `;
 
-    obtenerPregunta(); // ← Se llama a la primera pregunta otra vez
+    obtenerPregunta(); // ← Se llama a obtener pregunta
   });
 }
 
@@ -162,7 +162,7 @@ async function cargarHistorial() {
   const partidas = await res.json();
 
   const historialDiv = document.getElementById('historial');
-  historialDiv.innerHTML = '<h2>Historial de partidas</h2>';
+  historialDiv.innerHTML = '<h2>Ranking de partidas</h2>';
 
   partidas.forEach(partida => {
     const duracionTotal = partida.tiempoTotal;
@@ -200,11 +200,11 @@ document.getElementById('btnHistorial').addEventListener('click', () => {
   if (visible) {
     historialDiv.style.display = 'none';
     historialDiv.setAttribute('data-visible', 'false');
-    document.getElementById('btnHistorial').textContent = 'Ver historial';
+    document.getElementById('btnHistorial').textContent = 'Ver Ranking';
   } else {
     historialDiv.style.display = 'block';
     historialDiv.setAttribute('data-visible', 'true');
-    document.getElementById('btnHistorial').textContent = 'Ocultar historial';
+    document.getElementById('btnHistorial').textContent = 'Ocultar Ranking';
     cargarHistorial();
   }
 });

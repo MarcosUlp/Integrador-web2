@@ -25,7 +25,7 @@ app.use((req, res) => {// app.use:middleware, no especifica ruta, aplica a toda 
 //contruye ruta absoluta al archivo 'index.html' dentro del directorio 'public'
 
 
-  
+
 // Arranque del servidor
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);//inicia el servidor para escuchar en el puerto indicado

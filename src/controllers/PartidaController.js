@@ -22,7 +22,7 @@ function guardarPartida(req, res) {
     partidas.unshift(nuevaPartida);
 
     // Mantener solo las últimas 20
-    if (partidas.length > 20) partidas = partidas.slice(0, 20);
+
 
     // Guardar nuevamente
     fs.writeFile(rutaArchivo, JSON.stringify(partidas, null, 2), (err) => {

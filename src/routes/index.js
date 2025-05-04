@@ -36,7 +36,7 @@ router.get('/partidas', (req, res)=>{ // req es el requerimiento del cliente, re
         }
         return b.correctas - a.correctas
       });
-      res.json(partidas);
+      res.json(ordenadas);
     }catch(e){
       res.status(500).json({error: 'error parseando partidas'});
     }
