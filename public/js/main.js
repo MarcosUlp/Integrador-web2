@@ -187,12 +187,6 @@ async function cargarHistorial() {
 //Aqui empieza el juego
 obtenerPregunta();
 
-// Mostrar historial solo al hacer clic en el botón
-/*document.getElementById('btnHistorial').addEventListener('click', () => {
-  document.getElementById('historial').style.display = 'block';
-  cargarHistorial();
-});
-*/
 document.getElementById('btnHistorial').addEventListener('click', () => {
   const historialDiv = document.getElementById('historial');
   const visible = historialDiv.getAttribute('data-visible') === 'true';
